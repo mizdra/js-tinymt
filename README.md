@@ -10,7 +10,7 @@ If you want to use for simulation and numerical analysis and so on,
 
 ## Installation
 
-```toml
+```bash
 $ npm install @mizdra/tinymt -S
 # or
 $ yarn add @mizdra/tinymt
