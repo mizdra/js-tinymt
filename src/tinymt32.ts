@@ -18,16 +18,36 @@ export class Rng {
   ) {}
 
   status (): number[] {
-    return []
+    return [...this._status]
   }
   nextState (): void {
+    let x: number
+    let y: number
+
+    y = this._status[3]
+    x = (this._status[0] & TINYMT32_MASK)
+      ^ this._status[1]
+      ^ this._status[2]
+    x ^= x << TINYMT32_SH0
+    y ^= (y >>> TINYMT32_SH0) ^ x
+    this._status[0] = this._status[1]
+    this._status[1] = this._status[2]
+    this._status[2] = x ^ (y << TINYMT32_SH1)
+    this._status[3] = y
+    this._status[1] ^= (-((y & 1)) >>> 0) & this.param.mat1
+    this._status[2] ^= (-((y & 1)) >>> 0) & this.param.mat2
     return
   }
   temper (): number {
-    return 1
+    let t0 = this._status[3]
+    const t1 = this._status[0] + (this._status[2] >>> TINYMT32_SH8)
+    t0 ^= t1
+    t0 ^= -((t1 & 1)) & this.param.tmat
+    return t0
   }
   gen (): number {
-    return 1
+    this.nextState()
+    return this.temper()
   }
 }
 
@@ -39,11 +59,9 @@ export function fromSeed (param: Param, seed: number): Rng {
     param.tmat,
   ]
   for (let i = 1; i < MIN_LOOP; i++) {
-    const a = (i) & 3
-    const b = ((i) - 1) & 3
-    status[a] ^= i + 1812433253
-      * (status[(i - 1) & 3]
-        ^ (status[(i - 1) & 3] >> 30))
+    const a = i & 3
+    const b = (i - 1) & 3
+    status[a] ^= i + Math.imul(1812433253, (status[b] ^ (status[b] >>> 30)))
   }
   const rng = new Rng(param, periodCertification(status))
 
