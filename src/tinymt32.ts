@@ -55,7 +55,7 @@ export function fromSeed (param: Param, seed: number): Rng {
 }
 
 export function fromStatus (param: Param, status: number[]): Rng {
-  return new Rng(param, status.slice())
+  return new Rng({ ...param }, [...status])
 }
 
 function periodCertification (status: number[]): number[] {
