@@ -6,6 +6,7 @@
     "lib": ["esnext", "dom"],
     "declaration": true,
     "declarationDir": "./dist",
+    "downlevelIteration": true,
 
     /* Module Options */
     "module": "commonjs",
