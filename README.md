@@ -76,4 +76,5 @@ console.assert(
 
 ## License
 - js-tinymt: [LICENSE](https://raw.githubusercontent.com/mizdra/js-tinymt/master/LICENSE)
+  - Special Thanks: @odanado (ref: [RNGeek/SMBQT](https://github.com/RNGeek/SMBQT))
 - [MersenneTwister-Lab/TinyMT](https://github.com/MersenneTwister-Lab/TinyMT): [LICENSE_TINYMT](https://raw.githubusercontent.com/mizdra/js-tinymt/master/LICENSE_TINYMT) (Original: [LICENSE.txt](https://raw.githubusercontent.com/MersenneTwister-Lab/TinyMT/master/LICENSE.txt))
