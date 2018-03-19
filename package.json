@@ -19,6 +19,7 @@
     "lint:src": "tslint -p . 'src/**/*.ts'",
     "lint:test": "tslint -p test 'test/**/*.ts'",
     "lint": "run-s lint:*",
+    "pretest": "yarn run build",
     "test": "mocha --require espower-typescript/guess test/**/*.ts",
     "prepublishOnly": "run-s build test"
   },
