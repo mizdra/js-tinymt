@@ -4,6 +4,8 @@
     "tslint-config-standard"
   ],
   "rules": {
+    "no-bitwise": false,
+    "member-access": [true, "no-public"],
     "interface-name": false,
     "no-console": { "severity": "warning" },
     "ordered-imports": true,
