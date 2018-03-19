@@ -1,0 +1,9 @@
+{
+  "name": "tinymt",
+  "version": "0.0.0",
+  "description": "The JavaScript implements of TinyMT for Pokémon RNG.",
+  "main": "index.js",
+  "repository": "https://github.com/mizdra/js-tinymt.git",
+  "author": "mizdra <pp.mizdra@gmail.com>",
+  "license": "MIT"
+}
