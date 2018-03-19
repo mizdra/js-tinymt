@@ -2,8 +2,31 @@
   "name": "tinymt",
   "version": "0.0.0",
   "description": "The JavaScript implements of TinyMT for Pokémon RNG.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
   "repository": "https://github.com/mizdra/js-tinymt.git",
   "author": "mizdra <pp.mizdra@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "build": "cross-env NODE_ENV=production tsc",
+    "dev": "cross-env NODE_ENV=development tsc --watch",
+    "lint:src": "tslint -p . 'src/**/*.ts'",
+    "lint:test": "tslint -p test 'test/**/*.ts'",
+    "lint": "run-s lint:*",
+    "test": "mocha --require espower-typescript/guess test/**/*.ts",
+    "prepublishOnly": "run-s build test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.48",
+    "@types/node": "^9.4.7",
+    "cross-env": "^5.1.4",
+    "espower-typescript": "^8.1.3",
+    "mocha": "^5.0.4",
+    "npm-run-all": "^4.1.2",
+    "power-assert": "^1.4.4",
+    "tslint": "^5.9.1",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.7.2"
+  }
 }
