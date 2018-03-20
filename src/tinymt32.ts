@@ -13,10 +13,13 @@ export interface Param {
 
 export class Rng {
   constructor (
-    private readonly param: Param,
+    private readonly _param: Param,
     private _status: number[],
   ) {}
 
+  param (): Param {
+    return { ...this._param }
+  }
   status (): number[] {
     return [...this._status]
   }
@@ -34,20 +37,23 @@ export class Rng {
     this._status[1] = this._status[2]
     this._status[2] = x ^ (y << TINYMT32_SH1)
     this._status[3] = y
-    this._status[1] ^= (-((y & 1)) >>> 0) & this.param.mat1
-    this._status[2] ^= (-((y & 1)) >>> 0) & this.param.mat2
+    this._status[1] ^= (-((y & 1)) >>> 0) & this._param.mat1
+    this._status[2] ^= (-((y & 1)) >>> 0) & this._param.mat2
     return
   }
   temper (): number {
     let t0 = this._status[3]
     const t1 = this._status[0] + (this._status[2] >>> TINYMT32_SH8)
     t0 ^= t1
-    t0 ^= -((t1 & 1)) & this.param.tmat
+    t0 ^= -((t1 & 1)) & this._param.tmat
     return t0
   }
   gen (): number {
     this.nextState()
     return this.temper()
+  }
+  clone (): Rng {
+    return fromStatus(this._param, this._status)
   }
 }
 
