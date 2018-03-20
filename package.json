@@ -4,7 +4,6 @@
   "description": "The JavaScript implements of TinyMT for Pokémon RNG.",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
-  "browser": "dist/umd/index.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
   "repository": "https://github.com/mizdra/js-tinymt.git",
@@ -13,7 +12,6 @@
   "scripts": {
     "build:cjs": "cross-env NODE_ENV=production tsc --module commonjs --outDir dist/cjs",
     "build:esm": "cross-env NODE_ENV=production tsc --module esnext --outDir dist/esm",
-    "build:umd": "cross-env NODE_ENV=production tsc --module umd --outDir dist/umd",
     "build": "run-p build:*",
     "dev": "cross-env NODE_ENV=development tsc --watch",
     "lint:src": "tslint -p . 'src/**/*.ts'",
