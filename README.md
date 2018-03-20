@@ -1,6 +1,7 @@
 # js-tinymt
 
 [![Build Status](https://travis-ci.org/mizdra/js-tinymt.svg?branch=master)](https://travis-ci.org/mizdra/js-tinymt)
+[![npm version](https://badge.fury.io/js/%40mizdra%2Ftinymt.svg)](https://badge.fury.io/js/%40mizdra%2Ftinymt)
 
 The JavaScript implements of TinyMT for Pokémon RNG.
 
