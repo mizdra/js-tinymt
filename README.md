@@ -19,12 +19,13 @@ $ yarn add @mizdra/tinymt
 
 ## Usage
 ```js
+import * as assert from 'assert'
 import { Tinymt32 } from '@mizdra/tinymt'
 
 function u32 (num) {
   return num >>> 0
 }
-const param = {
+const param: Tinymt32.Param = {
   mat1: 0x8F7011EE,
   mat2: 0xFC78FF1F,
   tmat: 0x3793fdff,
@@ -34,30 +35,32 @@ const status = [0xCCA24D8, 0x11BA5AD5, 0xF2DAD045, 0xD95DD7B2]
 
 // Tinymt32.fromSeed(param, seed)
 const rng1 = Tinymt32.fromSeed(param, seed)
-console.assert(u32(rng1.gen()) === 2545341989)
-console.assert(u32(rng1.gen()) === 981918433)
-console.assert(
-  [...Array(2)].map(_ => u32(rng1.gen())).toString() === [3715302833, 2387538352].toString()
+assert(u32(rng1.gen()) === 2545341989)
+assert(u32(rng1.gen()) === 981918433)
+assert.deepEqual(
+  [...Array(2)].map((_) => u32(rng1.gen())),
+  [3715302833, 2387538352],
 )
 
 // Tinymt32.fromStatus(param, status)
 const rng2 = Tinymt32.fromStatus(param, status)
 rng2.nextState()
-console.assert(u32(rng2.temper()) === 2545341989)
-console.assert(u32(rng2.gen()) === 981918433)
-console.assert(u32(rng2.temper()) === 981918433)
+assert(u32(rng2.temper()) === 2545341989)
+assert(u32(rng2.gen()) === 981918433)
+assert(u32(rng2.temper()) === 981918433)
 for (let i = 0; i < 2; i++) { rng2.nextState() }
-console.assert(
-  rng1.status().map(u32).toString() === rng2.status().map(u32).toString()
+assert.deepEqual(
+  rng1.status().map(u32),
+  rng2.status().map(u32),
 )
 ```
 
 
 ## Suppoerted Feature of MersenneTwister-Lab/TinyMT
-- [ ] tinymt32
-  - [ ] tinymt32_next_state
-  - [ ] tinymt32_temper
-  - [ ] tinymt32_generate_uint32
+- [x] tinymt32
+  - [x] tinymt32_next_state
+  - [x] tinymt32_temper
+  - [x] tinymt32_generate_uint32
   - [ ] tinymt32_generate_float
   - [ ] tinymt32_generate_float01
   - [ ] tinymt32_generate_float12
