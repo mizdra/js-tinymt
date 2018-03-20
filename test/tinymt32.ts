@@ -31,7 +31,7 @@ describe('tinymt32', () => {
   })
   it('should not overwrite the internal status', () => {
     const status = STATUS
-    const rng = fromStatus(PARAM, STATUS)
+    const rng = fromStatus(PARAM, status)
 
     status[0] = 0
     assert.deepEqual(rng.status().map(u32), [0x63B07A71, 0x5740A11A, 0x3CFE1DE3, 0x08A80987])
