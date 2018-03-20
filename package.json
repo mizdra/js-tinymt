@@ -1,5 +1,5 @@
 {
-  "name": "tinymt",
+  "name": "@mizdra/tinymt",
   "version": "0.0.0",
   "description": "The JavaScript implements of TinyMT for Pokémon RNG.",
   "main": "dist/cjs/index.js",
@@ -36,6 +36,7 @@
     "typescript": "^2.7.2"
   },
   "files": [
-    "dist"
+    "dist",
+    "src"
   ]
 }
