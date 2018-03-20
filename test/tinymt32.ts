@@ -13,6 +13,13 @@ function u32 (num: number): number {
   // tslint:disable-next-line:no-bitwise
   return num >>> 0
 }
+function u32Obj (obj: any): typeof obj {
+  const newObj: typeof obj = {}
+  Object.keys(obj).forEach((key, index) => {
+    newObj[key] = u32(obj[key])
+  })
+  return newObj
+}
 
 describe('tinymt32', () => {
   it('should transfer a next status', () => {
@@ -29,6 +36,18 @@ describe('tinymt32', () => {
     }
     assert(u32(rng.temper()) === 0x34CC99F7)
   })
+  it('should not overwrite the internal param', () => {
+    const param = PARAM
+    const rng = fromStatus(param, STATUS)
+
+    param.mat1 = 0
+    assert.deepEqual(u32Obj(rng.param()), { mat1: 0x8F7011EE, mat2: 0xFC78FF1F, tmat: 0x3793fdff })
+
+    const internalParam = rng.param()
+    internalParam.mat1 = 1
+
+    assert.deepEqual(u32Obj(rng.param()), { mat1: 0x8F7011EE, mat2: 0xFC78FF1F, tmat: 0x3793fdff })
+  })
   it('should not overwrite the internal status', () => {
     const status = STATUS
     const rng = fromStatus(PARAM, status)
@@ -40,6 +59,14 @@ describe('tinymt32', () => {
     internalStatus[0] = 1
 
     assert.deepEqual(rng.status().map(u32), [0x63B07A71, 0x5740A11A, 0x3CFE1DE3, 0x08A80987])
+  })
+  it('should be independence from cloned one', () => {
+    const rng1 = fromStatus(PARAM, STATUS)
+    rng1.nextState()
+    const rng2 = rng1.clone()
+    rng2.nextState()
+    assert(u32(rng1.temper()) === 0xE83FF36F)
+    assert(u32(rng2.temper()) === 0x9E6BA88F)
   })
   it('should pass check32 test', () => {
     const param: Tinymt32.Param = {
